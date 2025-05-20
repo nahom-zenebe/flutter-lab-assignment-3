@@ -10,12 +10,12 @@ Future<List<Albumentites>> getAllAlbums()async{
 }
   
 
-  Future<List<Photoentities>>getPhotosByAlbum(String albumId) async {
-    return await albumRepository.getPhotosByAlbum(albumId);
+  Future<List<Photoentities>>getAllPhotos() async {
+    return await albumRepository.getAllPhotos();
   }
 
-  Future<Albumentites> getsingleAlbum(String id) async {
-    return await albumRepository.getSingleAlbum(id);
+  Future<Photoentities> getPhotosByAlbumId(String albumId) async {
+    return await albumRepository.getPhotosByAlbumId(albumId);
   }
 
   

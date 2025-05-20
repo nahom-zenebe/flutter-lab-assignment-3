@@ -50,7 +50,7 @@ class _AlbumApiService implements AlbumApiService {
   }
 
   @override
-  Future<List<PhotoModel>> getPhotos() async {
+  Future<List<PhotoModel>> getAllPhotos() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -81,7 +81,7 @@ class _AlbumApiService implements AlbumApiService {
   @override
   Future<List<PhotoModel>> getPhotosByAlbumId(String albumId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'albumId': albumId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -92,7 +92,7 @@ class _AlbumApiService implements AlbumApiService {
     )
             .compose(
               _dio.options,
-              '/photos',
+              '/albums/${albumId}/photos',
               queryParameters: queryParameters,
               data: _data,
             )

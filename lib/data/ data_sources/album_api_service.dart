@@ -13,9 +13,8 @@ abstract class AlbumApiService {
   Future<List<AlbumModel>> getAlbums();
 
   @GET("/photos")
-  Future<List<PhotoModel>> getPhotos();
+  Future<List<PhotoModel>> getAllPhotos();
 
-  @GET("/photos")
-  Future<List<PhotoModel>> getPhotosByAlbumId(@Query("albumId") String albumId);
-
+  @GET("/albums/{albumId}/photos")
+  Future<List<PhotoModel>> getPhotosByAlbumId(@Path("albumId") String albumId);
 }

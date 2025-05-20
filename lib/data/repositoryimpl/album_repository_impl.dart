@@ -1,11 +1,10 @@
 
-
 import 'package:flutter_lab_assignment_3/data/%20data_sources/album_api_service.dart';
 import 'package:flutter_lab_assignment_3/domain/%20entities/Albumentites.dart';
 import 'package:flutter_lab_assignment_3/domain/%20entities/Photoentities.dart';
 import 'package:flutter_lab_assignment_3/domain/%20repositories/album_repository.dart';
 
-class AlbumRepositoryImpl implements AlbumRepository {
+class AlbumRepositoryImpl implements AlbumRepository{
   final AlbumApiService albumApiService;
 
   AlbumRepositoryImpl(this.albumApiService);
@@ -17,15 +16,15 @@ class AlbumRepositoryImpl implements AlbumRepository {
   }
 
   @override
-  Future<List<Photoentities>> getPhotosByAlbum(String albumId) async {
-    final photos = await albumApiService.getPhotosByAlbumId(albumId);
+  Future<List<Photoentities>> getAllPhotos() async {
+    final photos = await albumApiService.getAllPhotos();
     return photos.map((p) => p.toEntity()).toList();
   }
 
   @override
-  Future<Albumentites> getSingleAlbum(String albumId) async {
-    final albums = await albumApiService.getAlbums(); // or fetch single endpoint if available
-    final album = albums.firstWhere((a) => a.id == albumId);
-    return album.toEntity();
+  Future<Photoentities> getPhotosByAlbumId(String albumId) async {
+    final photos = await albumApiService.getPhotosByAlbumId(albumId);
+    final photo = photos.firstWhere((a) => a.id == albumId);
+  return photo.toEntity();
   }
 }
