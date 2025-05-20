@@ -28,7 +28,7 @@ class DBHelper {
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE albums (
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         userId INTEGER,
         title TEXT
       )
@@ -36,7 +36,7 @@ class DBHelper {
 
     await db.execute('''
       CREATE TABLE photos (
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         albumId INTEGER,
         title TEXT,
         url TEXT,

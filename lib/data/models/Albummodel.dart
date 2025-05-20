@@ -16,9 +16,9 @@ class AlbumModel {
 
   factory AlbumModel.fromJson(Map<String, dynamic> json) {
     return AlbumModel(
-      id: json['id'] as String,
-      userId: json['userId'] as String,
-      title: json['title'] as String,
+      id: json['id'].toString(),
+      userId: json['userId'].toString(),
+      title: json['title'] ?? "",
     );
   }
 

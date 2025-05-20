@@ -20,7 +20,7 @@ class PhotoLocalDataSource {
     }
   }
 
-  Future<List<PhotoModel>> getPhotosByAlbum(int albumId) async {
+  Future<List<PhotoModel>> getPhotosByAlbum(String  albumId) async {
     final db = await dbHelper.database;
     final result = await db.query(
       'photos',
