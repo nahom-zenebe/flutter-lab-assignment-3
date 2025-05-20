@@ -1,8 +1,11 @@
 import 'package:flutter_lab_assignment_3/domain/%20entities/Albumentites.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+
+@JsonSerializable()
 class AlbumModel {
-  final int id;
-  final int userId;
+  final   String id;
+  final String userId;
   final String title;
 
   AlbumModel({
@@ -13,8 +16,8 @@ class AlbumModel {
 
   factory AlbumModel.fromJson(Map<String, dynamic> json) {
     return AlbumModel(
-      id: json['id'] as int,
-      userId: json['userId'] as int,
+      id: json['id'] as String,
+      userId: json['userId'] as String,
       title: json['title'] as String,
     );
   }

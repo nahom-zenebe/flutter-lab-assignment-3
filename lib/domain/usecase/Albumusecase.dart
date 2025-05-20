@@ -5,20 +5,19 @@ import 'package:flutter_lab_assignment_3/domain/%20repositories/album_repository
 class Albumusecase {
   final AlbumRepository albumRepository;
   Albumusecase({required this.albumRepository});
+Future<List<Albumentites>> getAllAlbums()async{
+   return await albumRepository.getAllAlbums();
+}
+  
 
-  Future<List<Albumentites>> getallAlbum() async {
-    return await albumRepository.getallAlbum();
-  }
-
-  Future<List<Photoentities>> getallphoto() async {
-    return await albumRepository.getallphoto();
+  Future<List<Photoentities>>getPhotosByAlbum(String albumId) async {
+    return await albumRepository.getPhotosByAlbum(albumId);
   }
 
   Future<Albumentites> getsingleAlbum(String id) async {
-    return await albumRepository.getsingleAlbum(id);
+    return await albumRepository.getSingleAlbum(id);
   }
 
-  Future<Photoentities> getsinglephoto(String id) async {
-    return await albumRepository.getsinglephoto(id);
-  }
+  
+  
 }

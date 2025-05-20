@@ -1,11 +1,13 @@
 import 'package:flutter_lab_assignment_3/domain/%20entities/Photoentities.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonSerializable()
 class PhotoModel {
-  final int id;
+  final String id;
   final String title;
   final String url;
   final String thumbnailUrl;
-  final int albumId;
+  final String albumId;
 
   PhotoModel({
     required this.id,
@@ -17,11 +19,11 @@ class PhotoModel {
 
   factory PhotoModel.fromJson(Map<String, dynamic> json) {
     return PhotoModel(
-      id: json['id'] as int,
+      id: json['id'] as String,
       title: json['title'] as String,
       url: json['url'] as String,
       thumbnailUrl: json['thumbnailUrl'] as String,
-      albumId: json['albumId'] as int,
+      albumId: json['albumId'] as String,
     );
   }
 

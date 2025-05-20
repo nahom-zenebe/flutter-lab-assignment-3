@@ -1,9 +1,9 @@
 class Photoentities {
-  final int id;
+  final String id;
   final String title;
   final String url;
   final String thumbnailUrl;
-  final int albumId;
+  final String albumId;
 
 Photoentities({
     required this.id,
