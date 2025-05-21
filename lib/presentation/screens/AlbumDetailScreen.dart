@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_lab_assignment_3/presentation/bloc/album_bloc.dart';
 import 'package:flutter_lab_assignment_3/presentation/bloc/album_event.dart';
 import 'package:flutter_lab_assignment_3/presentation/bloc/album_state.dart';
+import 'package:flutter_lab_assignment_3/presentation/widgets/Photocard.dart';
 
 class AlbumDetailScreen extends StatefulWidget {
   final String albumId;
@@ -76,62 +77,25 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
               }
 
               return GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(top: 16, bottom: 24),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.8,
-                ),
-                itemCount: state.photos.length,
-                itemBuilder: (_, index) {
-                  final photo = state.photos[index];
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: CachedNetworkImage(
-                                imageUrl: photo.thumbnailUrl,
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(strokeWidth: 2),
-                                ),
-                                errorWidget: (context, url, error) => const Icon(
-                                  Icons.broken_image,
-                                  size: 40,
-                                  color: Colors.grey,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(
-                                photo.title,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+  physics: const BouncingScrollPhysics(),
+  padding: const EdgeInsets.only(top: 16, bottom: 24),
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 16,
+    mainAxisSpacing: 16,
+    childAspectRatio: 0.8,
+  ),
+  itemCount: state.photos.length,
+  itemBuilder: (_, index) {
+    final photo = state.photos[index];
+    return PhotoCard(
+      photo:photo,
+      onTap: () {
+        
+      },
+    );
+  },
+);
             } else if (state is AlbumError) {
               return Center(
                 child: Column(

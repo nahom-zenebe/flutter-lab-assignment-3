@@ -1,27 +1,19 @@
-import 'package:flutter_lab_assignment_3/data/models/Albummodel.dart';
-import 'package:flutter_lab_assignment_3/domain/%20entities/db_helper.dart';
-import 'package:sqflite/sqflite.dart';
-
+import 'package:flutter_lab_assignment_3/data/models/Album_hive_model.dart';
+import 'package:hive/hive.dart';
 
 class AlbumLocalDataSource {
-  final dbHelper = DBHelper();
+  final Box<AlbumModel> albumBox;
+
+  AlbumLocalDataSource(this.albumBox);
 
   Future<void> cacheAlbums(List<AlbumModel> albums) async {
-    final db = await dbHelper.database;
-
+    await albumBox.clear();
     for (var album in albums) {
-      await db.insert('albums', {
-        'id': album.id,
-        'userId': album.userId,
-        'title': album.title,
-      }, conflictAlgorithm: ConflictAlgorithm.replace);
+      await albumBox.put(album.id, album);
     }
   }
 
-  Future<List<AlbumModel>> getCachedAlbums() async {
-    final db = await dbHelper.database;
-    final result = await db.query('albums');
-
-    return result.map((json) => AlbumModel.fromJson(json)).toList();
+  List<AlbumModel> getCachedAlbums() {
+    return albumBox.values.toList();
   }
 }

@@ -1,20 +1,38 @@
-import 'package:flutter_lab_assignment_3/data/models/Albummodel.dart';
-import 'package:flutter_lab_assignment_3/data/models/PhotoModel.dart';
-import 'package:retrofit/retrofit.dart';
-import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_lab_assignment_3/data/models/Album_hive_model.dart';
+import 'package:flutter_lab_assignment_3/data/models/photo_hive_model.dart';
 
-part 'album_api_service.g.dart';
+class AlbumApiService {
+  static const String baseUrl = "https://jsonplaceholder.typicode.com";
+  final http.Client httpClient;
 
-@RestApi(baseUrl: "https://jsonplaceholder.typicode.com/")
-abstract class AlbumApiService {
-  factory AlbumApiService(Dio dio, {String baseUrl}) = _AlbumApiService;
+  AlbumApiService({required this.httpClient});
 
-  @GET("/albums")
-  Future<List<AlbumModel>> getAlbums();
+  Future<List<AlbumModel>> getAlbums() async {
+    final response = await httpClient.get(Uri.parse('$baseUrl/albums'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((json) => AlbumModel.fromJson(json)).toList();
+    }
+    throw Exception('Failed to load albums');
+  }
 
-  @GET("/photos")
-  Future<List<PhotoModel>> getAllPhotos();
+  Future<List<PhotoModel>> getAllPhotos() async {
+    final response = await httpClient.get(Uri.parse('$baseUrl/photos'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((json) => PhotoModel.fromJson(json)).toList();
+    }
+    throw Exception('Failed to load photos');
+  }
 
-  @GET("/albums/{albumId}/photos")
-  Future<List<PhotoModel>> getPhotosByAlbumId(@Path("albumId") String albumId);
+  Future<List<PhotoModel>> getPhotosByAlbumId(String albumId) async {
+    final response = await httpClient.get(Uri.parse('$baseUrl/albums/$albumId/photos'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((json) => PhotoModel.fromJson(json)).toList();
+    }
+    throw Exception('Failed to load photos for album $albumId');
+  }
 }

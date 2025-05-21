@@ -11,12 +11,14 @@ class AlbumListScreen extends StatefulWidget {
 }
 
 class _AlbumListScreenState extends State<AlbumListScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Trigger data load once when screen is first shown
-    context.read<AlbumBloc>().add(FetchAlbums());
-  }
+
+@override
+void initState() {
+  super.initState();
+
+  context.read<AlbumBloc>().add(FetchAlbums());
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +39,20 @@ class _AlbumListScreenState extends State<AlbumListScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: BlocBuilder<AlbumBloc, AlbumState>(
-          builder: (context, state) {
-            if (state is AlbumLoading) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    SizedBox(height: 16),
+  builder: (context, state) {
+
+    if (state is AlbumLoading || state is AlbumInitial) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).primaryColor,
+              ),
+            ),
+            SizedBox(height: 16),
                     Text(
                       "Loading Albums...",
                       style: TextStyle(

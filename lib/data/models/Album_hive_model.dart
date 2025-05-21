@@ -1,18 +1,19 @@
+
 import 'package:flutter_lab_assignment_3/domain/%20entities/Albumentites.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:hive/hive.dart';
 
+part 'Album_hive_model.g.dart';
 
-@JsonSerializable()
+@HiveType(typeId: 0)
 class AlbumModel {
-  final   String id;
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
   final String userId;
+  @HiveField(2)
   final String title;
 
-  AlbumModel({
-    required this.id,
-    required this.userId,
-    required this.title,
-  });
+  AlbumModel({required this.id, required this.userId, required this.title});
 
   factory AlbumModel.fromJson(Map<String, dynamic> json) {
     return AlbumModel(
@@ -22,12 +23,7 @@ class AlbumModel {
     );
   }
 
-  // Convert DTO to Entity
   Albumentites toEntity() {
-    return  Albumentites(
-      id: id,
-      userId: userId,
-      title: title,
-    );
+    return Albumentites(id: id, userId: userId, title: title);
   }
 }

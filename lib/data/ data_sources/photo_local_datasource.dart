@@ -1,33 +1,21 @@
-import 'package:flutter_lab_assignment_3/data/models/PhotoModel.dart';
-import 'package:flutter_lab_assignment_3/domain/%20entities/db_helper.dart';
-import 'package:sqflite/sqflite.dart';
+// 2. Photo Local Data Source
 
+import 'package:flutter_lab_assignment_3/data/models/photo_hive_model.dart';
+import 'package:hive/hive.dart';
 
 class PhotoLocalDataSource {
-  final dbHelper = DBHelper();
+  final Box<PhotoModel> photoBox;
+
+  PhotoLocalDataSource(this.photoBox);
 
   Future<void> cachePhotos(List<PhotoModel> photos) async {
-    final db = await dbHelper.database;
-
+    await photoBox.clear();
     for (var photo in photos) {
-      await db.insert('photos', {
-        'id': photo.id,
-        'albumId': photo.albumId,
-        'title': photo.title,
-        'url': photo.url,
-        'thumbnailUrl': photo.thumbnailUrl,
-      }, conflictAlgorithm: ConflictAlgorithm.replace);
+      await photoBox.put(photo.id, photo);
     }
   }
 
-  Future<List<PhotoModel>> getPhotosByAlbum(String  albumId) async {
-    final db = await dbHelper.database;
-    final result = await db.query(
-      'photos',
-      where: 'albumId = ?',
-      whereArgs: [albumId],
-    );
-
-    return result.map((json) => PhotoModel.fromJson(json)).toList();
+  List<PhotoModel> getPhotosByAlbum(int albumId) {
+    return photoBox.values.where((p) => p.albumId == albumId.toString()).toList();
   }
 }
