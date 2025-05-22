@@ -29,7 +29,7 @@ class PhotoCard extends StatelessWidget {
             children: [
               Expanded(
                 child: CachedNetworkImage(
-                  imageUrl: photo.thumbnailUrl,
+                  imageUrl: photo.thumbnailUrl??"",
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),

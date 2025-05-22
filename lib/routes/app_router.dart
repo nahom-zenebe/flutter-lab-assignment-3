@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_lab_assignment_3/domain/usecase/Albumusecase.dart';
+import 'package:flutter_lab_assignment_3/presentation/bloc/album_bloc.dart';
+import 'package:flutter_lab_assignment_3/presentation/bloc/album_event.dart';
 import 'package:flutter_lab_assignment_3/presentation/screens/AlbumDetailScreen.dart';
 
 import 'package:flutter_lab_assignment_3/presentation/screens/AlbumListScreen.dart';
@@ -12,13 +16,18 @@ final GoRouter router = GoRouter(
       name: 'home',
       builder: (context, state) => AlbumListScreen(),
     ),
-    GoRoute(
-      path: '/album/:id',
-      name: 'albumDetail',
-      builder: (context, state) {
-        final albumId = state.pathParameters['id']!;
-        return AlbumDetailScreen(albumId: albumId);
-      },
-    ),
+   GoRoute(
+  path: '/album/:id',
+  name: 'albumDetail',
+  builder: (context, state) {
+    final albumId = state.pathParameters['id']!;
+    return BlocProvider(
+      create: (_) => AlbumBloc(context.read<Albumusecase>())
+        ..add(FetchPhotosByAlbumId(albumId)),
+      child: AlbumDetailScreen(albumId: albumId),
+    );
+  },
+),
+
   ],
 );
