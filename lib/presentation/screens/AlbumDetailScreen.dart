@@ -76,13 +76,13 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
               }
 
               return GridView.builder(
-  physics: const BouncingScrollPhysics(),
-  padding: const EdgeInsets.only(top: 16, bottom: 24),
-  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-    crossAxisSpacing: 16,
-    mainAxisSpacing: 16,
-    childAspectRatio: 0.8,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: 16, bottom: 24),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+             crossAxisCount: 2,
+             crossAxisSpacing: 16,
+             mainAxisSpacing: 16,
+            childAspectRatio: 0.8,
   ),
   itemCount: state.photos.length,
   itemBuilder: (_, index) {

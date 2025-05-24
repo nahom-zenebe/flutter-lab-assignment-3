@@ -114,6 +114,8 @@ void initState() {
                             SizedBox(width: 16),
                             Expanded(
                               child: Text(
+
+                                
                                 album.title,
                                 style: TextStyle(
                                   fontSize: 16,
